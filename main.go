@@ -9,7 +9,6 @@ import (
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
 	"log"
-	"strconv"
 	"time"
 )
 
@@ -33,6 +32,9 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+
+	d, _ := time.ParseDuration("10m")
+	go pollCheckInTimes(d)
 
 	bot.Debug = true
 
@@ -75,8 +77,10 @@ func register(update tgbotapi.Update) {
 		log.Print("USER IS NOT REGISTERED")
 	}
 
-	m := make(map[string]string)
-	m["lastCheckIn"] = strconv.FormatInt(time.Now().Unix(), 10)
+	m := make(map[string]interface{})
+	m["lastCheckIn"] = time.Now().Unix()
+	m["chatID"] = update.FromChat().ID
+	m["telegramID"] = update.SentFrom().ID
 
 	result, err := client.Collection("users").Doc(update.SentFrom().UserName).Set(context.Background(), m)
 
@@ -86,7 +90,7 @@ func register(update tgbotapi.Update) {
 
 	log.Println(result)
 
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "You're now registered.")
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "✅ You're now registered to this chat.")
 	bot.Send(msg)
 }
 
@@ -98,19 +102,19 @@ func isUserRegistered(update tgbotapi.Update) bool {
 
 func addToPendingCheckIn(update tgbotapi.Update) {
 	if !isUserRegistered(update) {
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Use /register to register your account first!")
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "🤔 Use /register to register your account first!")
 		bot.Send(msg)
 		return
 	}
 
 	pendingCheckIn[update.SentFrom().UserName] = true
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Great, send your photo!")
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "⭐ Great, send your photo!")
 	bot.Send(msg)
 }
 
 func tryCheckIn(update tgbotapi.Update) bool {
 	if !isUserRegistered(update) {
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Use /register to register your account first!")
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "🤔 Use /register to register your account first!")
 		bot.Send(msg)
 		return false
 	}
@@ -140,14 +144,17 @@ func writeCheckInTime(update tgbotapi.Update) {
 	}
 
 	log.Println(result)
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("Awesome, you're checked in! You've checked in %s times.", getUserCheckInCount(update)))
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("🎉 Awesome, you're checked in! You've checked in %s times.", getUserCheckInCount(update)))
 	bot.Send(msg)
 }
 
 func getStats(update tgbotapi.Update) {
-	iter := client.Collection("users").OrderBy("totalCheckIns", firestore.Asc).Limit(10).Documents(context.Background())
+	chatID := update.FromChat().ID
+	iter := client.Collection("users").OrderBy("totalCheckIns", firestore.Asc).Where("chatID", "==", chatID).Limit(10).Documents(context.Background())
 
 	stats := make(map[string]string)
+
+	log.Println("Checking stats for chatID " + string(chatID))
 
 	for {
 		doc, err := iter.Next()
@@ -155,13 +162,18 @@ func getStats(update tgbotapi.Update) {
 			break
 		}
 		if err != nil {
+			log.Println(err)
 			return
 		}
 
 		stats[doc.Ref.ID] = fmt.Sprint(doc.Data()["totalCheckIns"])
 	}
 
-	msg := "Check-In Leaderboard\n\n"
+	msg := "No stats yet."
+
+	if len(stats) > 0 {
+		msg = "💯 Check-In Leaderboard\n\n"
+	}
 
 	for key, element := range stats {
 		msg += key + ": " + element + "\n"
@@ -178,4 +190,55 @@ func getUserCheckInCount(update tgbotapi.Update) string {
 
 	log.Println(user.Data()["totalCheckIns"])
 	return fmt.Sprint(user.Data()["totalCheckIns"])
+}
+
+func pollCheckInTimes(d time.Duration) {
+	for true {
+		log.Print("Polling for kicks/warnings...")
+
+		oneWeekAgo := time.Now().Add(-168 * time.Hour).Unix()
+		sixDaysAgo := time.Now().Add(-144 * time.Hour).Unix()
+
+		iter := client.Collection("users").Where("lastCheckIn", "<=", sixDaysAgo).Documents(context.Background())
+
+		for {
+			doc, err := iter.Next()
+			if err == iterator.Done {
+				break
+			}
+			if err != nil {
+				return
+			}
+
+			convertedInt, ok := doc.Data()["lastCheckIn"].(int64)
+
+			if !ok {
+				panic("Bad int convert")
+				return
+			}
+
+			chatID := doc.Data()["chatID"].(int64)
+
+			log.Println(chatID)
+
+			if convertedInt > oneWeekAgo && convertedInt < sixDaysAgo {
+				bot.Send(tgbotapi.NewMessage(chatID, "⚠️ You have 24 hours to submit a check-in before you are kicked!"))
+			} else if convertedInt <= oneWeekAgo {
+				bot.Send(tgbotapi.NewMessage(chatID, "💣 You've been kicked due to not sending a gainz check-in in 7 days. All data has been deleted."))
+				bot.Send(tgbotapi.KickChatMemberConfig{
+					ChatMemberConfig: tgbotapi.ChatMemberConfig{
+						ChatID:             chatID,
+						SuperGroupUsername: "",
+						ChannelUsername:    "",
+						UserID:             doc.Data()["telegramID"].(int64),
+					},
+					UntilDate:      0,
+					RevokeMessages: false,
+				})
+
+				client.Collection("users").Doc(doc.Ref.ID).Delete(context.Background())
+			}
+		}
+		time.Sleep(d)
+	}
 }
