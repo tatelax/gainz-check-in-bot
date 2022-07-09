@@ -7,7 +7,6 @@ import (
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"google.golang.org/api/iterator"
-	"google.golang.org/api/option"
 	"log"
 	"time"
 )
@@ -17,11 +16,16 @@ var pendingCheckIn map[string]bool
 var bot *tgbotapi.BotAPI
 
 func main() {
-	sa := option.WithCredentialsFile("./gainz-c5ddd-firebase-adminsdk-hgnr0-37d5263c09.json")
-	app, err := firebase.NewApp(context.Background(), nil, sa)
-	if err != nil {
-		log.Panic(err)
-	}
+	// CONFIG IF DEPLOYED
+	conf := &firebase.Config{ProjectID: "gainz-c5ddd"}
+	app, err := firebase.NewApp(context.Background(), conf)
+
+	// CONFIG IF RUNNING LOCAL
+	//sa := option.WithCredentialsFile("./gainz-c5ddd-firebase-adminsdk-hgnr0-37d5263c09.json")
+	//app, err := firebase.NewApp(context.Background(), nil, sa)
+	//if err != nil {
+	//	log.Panic(err)
+	//}
 
 	client, err = app.Firestore(context.Background())
 	if err != nil {
@@ -150,7 +154,7 @@ func writeCheckInTime(update tgbotapi.Update) {
 
 func getStats(update tgbotapi.Update) {
 	chatID := update.FromChat().ID
-	iter := client.Collection("users").OrderBy("totalCheckIns", firestore.Asc).Where("chatID", "==", chatID).Limit(10).Documents(context.Background())
+	iter := client.Collection("users").OrderBy("totalCheckIns", firestore.Desc).Where("chatID", "==", chatID).Limit(10).Documents(context.Background())
 
 	stats := make(map[string]string)
 
@@ -219,18 +223,14 @@ func pollCheckInTimes(d time.Duration) {
 
 			chatID := doc.Data()["chatID"].(int64)
 
-			log.Println(chatID)
-
 			if convertedInt > oneWeekAgo && convertedInt < sixDaysAgo {
 				bot.Send(tgbotapi.NewMessage(chatID, "⚠️ You have 24 hours to submit a check-in before you are kicked!"))
 			} else if convertedInt <= oneWeekAgo {
 				bot.Send(tgbotapi.NewMessage(chatID, "💣 You've been kicked due to not sending a gainz check-in in 7 days. All data has been deleted."))
 				bot.Send(tgbotapi.KickChatMemberConfig{
 					ChatMemberConfig: tgbotapi.ChatMemberConfig{
-						ChatID:             chatID,
-						SuperGroupUsername: "",
-						ChannelUsername:    "",
-						UserID:             doc.Data()["telegramID"].(int64),
+						ChatID: chatID,
+						UserID: doc.Data()["telegramID"].(int64),
 					},
 					UntilDate:      0,
 					RevokeMessages: false,
