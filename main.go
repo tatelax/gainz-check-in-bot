@@ -8,6 +8,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"google.golang.org/api/iterator"
 	"google.golang.org/api/option"
+	"io/ioutil"
 	"log"
 	"time"
 )
@@ -33,7 +34,13 @@ func main() {
 		log.Fatalln(err)
 	}
 
-	bot, err = tgbotapi.NewBotAPI("5408693130:AAFVr_CKP8btv17nGzHoacGsVMvC5KJb8b4")
+	telegramKey, err := ioutil.ReadFile("telegram_key.txt")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	bot, err = tgbotapi.NewBotAPI(string(telegramKey))
 	if err != nil {
 		log.Panic(err)
 	}
