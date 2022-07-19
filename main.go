@@ -7,6 +7,7 @@ import (
 	"fmt"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"google.golang.org/api/iterator"
+	"google.golang.org/api/option"
 	"log"
 	"time"
 )
@@ -17,15 +18,15 @@ var bot *tgbotapi.BotAPI
 
 func main() {
 	// CONFIG IF DEPLOYED
-	conf := &firebase.Config{ProjectID: "gainz-c5ddd"}
-	app, err := firebase.NewApp(context.Background(), conf)
+	//conf := &firebase.Config{ProjectID: "gainz-c5ddd"}
+	//app, err := firebase.NewApp(context.Background(), conf)
 
 	// CONFIG IF RUNNING LOCAL
-	//sa := option.WithCredentialsFile("./gainz-c5ddd-firebase-adminsdk-hgnr0-37d5263c09.json")
-	//app, err := firebase.NewApp(context.Background(), nil, sa)
-	//if err != nil {
-	//	log.Panic(err)
-	//}
+	sa := option.WithCredentialsFile("./gainz-c5ddd-firebase-adminsdk-hgnr0-37d5263c09.json")
+	app, err := firebase.NewApp(context.Background(), nil, sa)
+	if err != nil {
+		log.Panic(err)
+	}
 
 	client, err = app.Firestore(context.Background())
 	if err != nil {
@@ -62,8 +63,8 @@ func main() {
 				getStats(update)
 			}
 
-			// User might be trying to send their check in photo
-			if update.Message.Photo != nil || update.Message.Document != nil {
+			// User might be trying to send their check in photo/video
+			if update.Message.Photo != nil || update.Message.Document != nil || update.Message.Video != nil {
 				tryCheckIn(update)
 			}
 		}
@@ -71,7 +72,6 @@ func main() {
 }
 
 func register(update tgbotapi.Update) {
-
 	if isUserRegistered(update) {
 		log.Print("USER IS REGISTERED")
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "You're already registered.")
@@ -82,9 +82,11 @@ func register(update tgbotapi.Update) {
 	}
 
 	m := make(map[string]interface{})
-	m["lastCheckIn"] = time.Now().Unix()
 	m["chatID"] = update.FromChat().ID
 	m["telegramID"] = update.SentFrom().ID
+	m["lastCheckIn"] = time.Now().Unix()
+	m["hasBeenWarned"] = false
+	m["totalCheckIns"] = 0
 
 	result, err := client.Collection("users").Doc(update.SentFrom().UserName).Set(context.Background(), m)
 
@@ -117,6 +119,8 @@ func addToPendingCheckIn(update tgbotapi.Update) {
 }
 
 func tryCheckIn(update tgbotapi.Update) bool {
+	log.Print("CHECKING ATTEMPT")
+
 	if !isUserRegistered(update) {
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "🤔 Use /register to register your account first!")
 		bot.Send(msg)
@@ -142,6 +146,7 @@ func writeCheckInTime(update tgbotapi.Update) {
 	result, err := dc.Update(context.Background(), []firestore.Update{
 		{Path: "lastCheckIn", Value: time.Now().Unix()},
 		{Path: "totalCheckIns", Value: firestore.Increment(1)},
+		{Path: "hasBeenWarned", Value: false},
 	})
 	if err != nil {
 		return
@@ -176,7 +181,7 @@ func getStats(update tgbotapi.Update) {
 	msg := "No stats yet."
 
 	if len(stats) > 0 {
-		msg = "💯 Check-In Leaderboard\n\n"
+		msg = "💯 Check-In Stats\n\n"
 	}
 
 	for key, element := range stats {
@@ -221,12 +226,19 @@ func pollCheckInTimes(d time.Duration) {
 				return
 			}
 
+			hasBeenWarned := false
+
+			if doc.Data()["hasBeenWarned"] != nil {
+				hasBeenWarned = doc.Data()["hasBeenWarned"].(bool)
+			}
+
 			chatID := doc.Data()["chatID"].(int64)
 
-			if convertedInt > oneWeekAgo && convertedInt < sixDaysAgo {
-				bot.Send(tgbotapi.NewMessage(chatID, "⚠️ You have 24 hours to submit a check-in before you are kicked!"))
+			if convertedInt > oneWeekAgo && convertedInt < sixDaysAgo && !hasBeenWarned {
+				setUserAsWarned(doc.Ref.ID)
+				bot.Send(tgbotapi.NewMessage(chatID, "⚠️ @"+doc.Ref.ID+", you have 24 hours to submit a check-in before you are kicked!"))
 			} else if convertedInt <= oneWeekAgo {
-				bot.Send(tgbotapi.NewMessage(chatID, "💣 You've been kicked due to not sending a gainz check-in in 7 days. All data has been deleted."))
+				bot.Send(tgbotapi.NewMessage(chatID, "💣 @"+doc.Ref.ID+", you've been kicked due to not sending a gainz check-in in 7 days. All data has been deleted."))
 				bot.Send(tgbotapi.KickChatMemberConfig{
 					ChatMemberConfig: tgbotapi.ChatMemberConfig{
 						ChatID: chatID,
@@ -241,4 +253,16 @@ func pollCheckInTimes(d time.Duration) {
 		}
 		time.Sleep(d)
 	}
+}
+
+func setUserAsWarned(docID string) {
+	dc := client.Collection("users").Doc(docID)
+	result, err := dc.Update(context.Background(), []firestore.Update{
+		{Path: "hasBeenWarned", Value: true},
+	})
+	if err != nil {
+		return
+	}
+
+	log.Println(result)
 }
