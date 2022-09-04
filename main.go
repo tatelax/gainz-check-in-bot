@@ -10,6 +10,8 @@ import (
 	"google.golang.org/api/option"
 	"io/ioutil"
 	"log"
+	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -160,7 +162,24 @@ func writeCheckInTime(update tgbotapi.Update) {
 	}
 
 	log.Println(result)
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("🎉 Awesome, you're checked in! You've checked in %s times.", getUserCheckInCount(update)))
+
+	fileName := fmt.Sprintf("./checkinmessages/%s.txt", update.SentFrom().UserName)
+	fileContents, err := ioutil.ReadFile(fileName)
+
+	checkInMessages := strings.Split(string(fileContents), ",")
+	messageIndex := 0
+
+	if err != nil { // No custom messages found for this user
+		checkInMessages = []string{"Awesome, you're checked in!"}
+		log.Println("No custom message found. Using default.")
+	} else {
+		rand.Seed(time.Now().UnixNano())
+		messageIndex = rand.Intn(len(checkInMessages) + 1) - 1
+		log.Printf("Custom message found %s", messageIndex)
+	}
+
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("🎉 %s You've checked in %s times.", checkInMessages[messageIndex], getUserCheckInCount(update)))
+
 	bot.Send(msg)
 }
 
