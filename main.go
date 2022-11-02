@@ -1,18 +1,19 @@
 package main
 
 import (
-	"cloud.google.com/go/firestore"
 	"context"
-	firebase "firebase.google.com/go"
 	"fmt"
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"google.golang.org/api/iterator"
-	"google.golang.org/api/option"
 	"io/ioutil"
 	"log"
 	"math/rand"
 	"strings"
 	"time"
+
+	"cloud.google.com/go/firestore"
+	firebase "firebase.google.com/go"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"google.golang.org/api/iterator"
+	"google.golang.org/api/option"
 )
 
 var client *firestore.Client
@@ -123,7 +124,7 @@ func addToPendingCheckIn(update tgbotapi.Update) {
 	}
 
 	pendingCheckIn[update.SentFrom().UserName] = true
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "⭐ Great, send your photo!")
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "⭐ Great, send your photo or video!")
 	bot.Send(msg)
 }
 
@@ -173,9 +174,9 @@ func writeCheckInTime(update tgbotapi.Update) {
 		checkInMessages = []string{"Awesome, you're checked in!"}
 		log.Println("No custom message found. Using default.")
 	} else {
-		rand.Seed(time.Now().UnixNano())
-		messageIndex = rand.Intn(len(checkInMessages) + 1) - 1
-		log.Printf("Custom message found %s", messageIndex)
+		rand.Seed(time.Now().Unix())
+		messageIndex = rand.Int() % len(checkInMessages)
+		log.Printf("Custom message found %d", messageIndex)
 	}
 
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("🎉 %s You've checked in %s times.", checkInMessages[messageIndex], getUserCheckInCount(update)))
