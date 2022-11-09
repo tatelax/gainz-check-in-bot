@@ -405,6 +405,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+**/.idea/workspace.xml
+**/.idea/tasks.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp
 
+gainz-bot/gainz-bot/secrets/*
