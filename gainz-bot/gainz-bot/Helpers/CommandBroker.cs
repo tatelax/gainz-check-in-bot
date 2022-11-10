@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using gainz_bot.Commands;
 using Telegram.Bot.Types;
 

@@ -1,3 +1,5 @@
+using System.Threading;
+using System.Threading.Tasks;
 using Google.Cloud.Firestore;
 using Telegram.Bot;
 using Telegram.Bot.Types;
