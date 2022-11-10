@@ -1,15 +1,17 @@
 namespace gainz_bot;
 
-public class Program
+public static class Program
 {
+    //private const int PollingInterval = 600000;
+    private const int PollingInterval = 1000;
+
     public static async Task Main(string[] args)
     {
-        var telegramHandlerTask = new TelegramController().Run();
-        var firebaseTask = new FirebaseController().Run();
-
         Console.WriteLine("Starting controllers...");
         
-        await Task.WhenAll(telegramHandlerTask, firebaseTask);
+        await Task.WhenAll(TelegramController.Instance.Run(),
+                           FirebaseController.Instance.Run(),
+                           PollingController.Instance.Run(PollingInterval));
         
         Console.WriteLine("All controllers stopped.");
     }

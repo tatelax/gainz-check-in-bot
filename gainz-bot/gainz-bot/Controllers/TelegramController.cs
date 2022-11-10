@@ -1,3 +1,5 @@
+using gainz_bot.Commands;
+using gainz_bot.Helpers;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -8,55 +10,61 @@ namespace gainz_bot;
 
 public class TelegramController
 {
+    public TelegramBotClient Client { get; private set; }
+
+    private static readonly Lazy<TelegramController> lazy = new(() => new TelegramController());
+
+    public static TelegramController Instance => lazy.Value;
+
     public async Task Run()
     {
-        var botClient = new TelegramBotClient(await System.IO.File.ReadAllTextAsync("./Secrets/telegram-key-dev.txt"));
+        Client = new TelegramBotClient(await System.IO.File.ReadAllTextAsync("./Secrets/telegram-key-dev.txt"));
 
         using var cts = new CancellationTokenSource();
 
-// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+        // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
         var receiverOptions = new ReceiverOptions
         {
             AllowedUpdates = Array.Empty<UpdateType>() // receive all update types
         };
-        botClient.StartReceiving(
+        
+        Client.StartReceiving(
             updateHandler: HandleUpdateAsync,
             pollingErrorHandler: HandlePollingErrorAsync,
             receiverOptions: receiverOptions,
             cancellationToken: cts.Token
         );
 
-        var me = await botClient.GetMeAsync();
+        var me = await Client.GetMeAsync(cancellationToken: cts.Token);
 
         Console.WriteLine($"Start listening for @{me.Username}");
         Console.ReadLine();
-
-// Send cancellation request to stop bot
+        
+        // Send cancellation request to stop bot
         cts.Cancel();
     }
 
-    private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update,
-        CancellationToken cancellationToken)
+    private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
         // Only process Message updates: https://core.telegram.org/bots/api#message
         if (update.Message is not { } message)
             return;
-        // Only process text messages
-        if (message.Text is not { } messageText)
-            return;
 
-        var chatId = message.Chat.Id;
+        long chatId = message.Chat.Id;
 
-        Console.WriteLine($"Received a '{messageText}' message in chat {chatId}.");
-
-        // Echo received message text
-        await botClient.SendTextMessageAsync(
-            chatId: chatId,
-            text: "You said:\n" + messageText,
-            cancellationToken: cancellationToken);
+        Console.WriteLine($"Received a '{message.Type}' messageType in chat {chatId}.");
+        
+        if (message.Type is MessageType.Text && message.Text[0] == '/')
+        {
+            CommandBroker.Command(update, cancellationToken);
+        }
+        else if(message.Type is MessageType.Document or MessageType.Video or MessageType.Audio or MessageType.Photo or MessageType.VideoNote)
+        {
+            CheckInCommand.CheckIn(update, cancellationToken);
+        }
     }
 
-    Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception,
+    private Task HandlePollingErrorAsync(ITelegramBotClient botClient, Exception exception,
         CancellationToken cancellationToken)
     {
         var ErrorMessage = exception switch
