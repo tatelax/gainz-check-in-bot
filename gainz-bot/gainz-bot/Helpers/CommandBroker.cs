@@ -7,9 +7,7 @@ public static class CommandBroker
 {
     public static async Task Command(Update update, CancellationToken cancellationToken)
     {
-        string command = update.Message.Text.ToUpper();
-
-        switch (command)
+        switch (update.Message.Text.ToUpper().Split('@')[0])
         {
             case "/REGISTER":
                 await RegisterCommand.Execute(update, cancellationToken);
@@ -19,6 +17,9 @@ public static class CommandBroker
                 break;
             case "/STATS":
                 await StatsCommand.Execute(update, cancellationToken);
+                break;
+            case "/VACATIONDAYS":
+                await VacationDaysCommand.Execute(update, cancellationToken);
                 break;
         }
     }

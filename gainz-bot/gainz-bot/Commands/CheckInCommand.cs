@@ -10,7 +10,7 @@ public static class CheckInCommand
 
     public static async Task Execute(Update update, CancellationToken token)
     {
-        AddUserAsPendingCheckin(update, token);
+        await AddUserAsPendingCheckin(update, token);
     }
 
     public static async Task CheckIn(Update update, CancellationToken token)
@@ -22,24 +22,30 @@ public static class CheckInCommand
         DocumentSnapshot userSnapshot = await userDoc.GetSnapshotAsync(token);
 
         int currentCheckIns;
+        int checkInsUntilNextReward = userSnapshot.GetValue<int>("CheckInsUntilNextReward");
         
         if (!userSnapshot.ContainsField("TotalCheckIns"))
-        {
             currentCheckIns = 0;
-        }
         else
-        {
             currentCheckIns = userSnapshot.GetValue<int>("TotalCheckIns");
-        }
 
         Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
         {
             { new FieldPath("HasBeenWarned"), false },
             { new FieldPath("TotalCheckIns"), ++currentCheckIns }
         };
+        
+        if (checkInsUntilNextReward <= 1)
+        {
+            await AwardVacationDay(update, userDoc, userSnapshot, token);
+        }
+        else
+        {
+            updates.Add(new FieldPath("CheckInsUntilNextReward"), --checkInsUntilNextReward);
+        }
 
         await userDoc.UpdateAsync(updates, cancellationToken: token);
-        await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"You're checked in! You've checked in {currentCheckIns} times.", cancellationToken: token);
+        await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"You're checked in! You've checked in {currentCheckIns} times. {checkInsUntilNextReward} more check-ins until your next reward.", cancellationToken: token);
         PendingCheckIn.Remove(update.Message.From.Id);
     }
 
@@ -54,5 +60,19 @@ public static class CheckInCommand
         PendingCheckIn.Add(update.Message.From.Id);
         
         await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: "⭐ Great, send your photo or video!", cancellationToken: token);
+    }
+
+    private static async Task AwardVacationDay(Update update, DocumentReference documentReference, DocumentSnapshot documentSnapshot, CancellationToken token)
+    {
+        int currVacationDays = documentSnapshot.GetValue<int>("VacationDays");
+        
+        Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
+        {
+            { new FieldPath("VacationDays"),  ++currVacationDays },
+            { new FieldPath("CheckInsUntilNextReward"), 10}
+        };
+
+        await documentReference.UpdateAsync(updates);
+        await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"🎉 Congratulations! You've earned a vacation day. You now have {currVacationDays} vacation days.", cancellationToken: token);
     }
 }

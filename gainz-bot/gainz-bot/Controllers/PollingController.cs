@@ -19,12 +19,9 @@ public class PollingController
         
         Console.WriteLine("Polling for kicks...");
 
-        //long sixDaysAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 518400;
-        //long sevenDaysAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 604800;
-
-        long oneDayAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 5;
-        long sixDaysAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 10;
-        long sevenDaysAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 20;
+        long oneDayAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 86400;
+        long sixDaysAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 518400;
+        long sevenDaysAgo = DateTimeOffset.Now.ToUnixTimeSeconds() - 604800;
 
         CollectionReference usersCollection = FirebaseController.Instance.db.Collection("users");
         Query usersThatNeedToBeWarnedOrKicked = usersCollection.WhereLessThanOrEqualTo("LastCheckIn", sixDaysAgo);
@@ -50,7 +47,7 @@ public class PollingController
                 {
                     await SubtractVacationDay(snapshot[i], chatID, remainingVacationDays);
                 }
-                else // Kick user
+                else if(remainingVacationDays == 0) // Kick user
                 {
                     await KickUser(snapshot[i], chatID);
                 }
@@ -90,7 +87,7 @@ public class PollingController
             { new FieldPath("VacationDays"), --remainingVacationDays }
         };
 
-        string message = $"🌴 @{snapshot.Id} you lost 1 vacation day and have {remainingVacationDays} remaining.";
+        string message = $"🌴 @{snapshot.Id} you lost a vacation day and have {remainingVacationDays} remaining.";
 
         if (remainingVacationDays > 0)
             message += " Check-in within 24 hours to prevent losing another!";

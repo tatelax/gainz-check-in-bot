@@ -12,6 +12,6 @@ public class FirebaseController
     
     public async Task Run()
     {
-        db = await FirestoreDb.CreateAsync("gainz-dev");
+        db = await FirestoreDb.CreateAsync("gainz-c5ddd");
     }
 }

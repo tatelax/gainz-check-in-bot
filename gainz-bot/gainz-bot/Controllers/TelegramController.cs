@@ -54,13 +54,17 @@ public class TelegramController
 
         Console.WriteLine($"Received a '{message.Type}' messageType in chat {chatId}.");
         
-        if (message.Type is MessageType.Text && message.Text[0] == '/')
+        if (message.Type is MessageType.Text && message.Text[0] == '/') // The user is sending a command
         {
-            CommandBroker.Command(update, cancellationToken);
+            await CommandBroker.Command(update, cancellationToken);
         }
-        else if(message.Type is MessageType.Document or MessageType.Video or MessageType.Audio or MessageType.Photo or MessageType.VideoNote)
+        else if(message.Type is MessageType.Document 
+                             or MessageType.Video 
+                             or MessageType.Audio 
+                             or MessageType.Photo 
+                             or MessageType.VideoNote) // The user is probably sending a check-in
         {
-            CheckInCommand.CheckIn(update, cancellationToken);
+            await CheckInCommand.CheckIn(update, cancellationToken);
         }
     }
 

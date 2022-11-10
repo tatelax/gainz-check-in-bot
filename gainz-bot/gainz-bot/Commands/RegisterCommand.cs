@@ -43,7 +43,8 @@ public static class RegisterCommand
             TelegramID = update.Message.From.Id,
             VacationDays = 3,
             TotalCheckIns = 0,
-            LastVacationSubtract = 0
+            LastVacationSubtract = 0,
+            CheckInsUntilNextReward = 10
         }, token);
         
         Console.WriteLine($"New user registered: {update.Message.From.Username}");

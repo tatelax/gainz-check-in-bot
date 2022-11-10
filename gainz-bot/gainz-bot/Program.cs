@@ -2,8 +2,7 @@ namespace gainz_bot;
 
 public static class Program
 {
-    //private const int PollingInterval = 600000;
-    private const int PollingInterval = 1000;
+    private const int PollingInterval = 600000;
 
     public static async Task Main(string[] args)
     {
