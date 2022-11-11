@@ -4,118 +4,7 @@
     <projectFile>gainz-bot/gainz-bot.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/projectSettingsUpdater.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot.sln.DotSettings.user" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/Secrets/firebase-credz-dev.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/Secrets/firebase-credz.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/Secrets/telegram-key-dev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/FirebaseAdmin.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Api.CommonProtos.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Api.Gax.Grpc.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Api.Gax.Rest.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Api.Gax.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Apis.Auth.PlatformServices.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Apis.Auth.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Apis.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Apis.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Cloud.Firestore.V1.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Cloud.Firestore.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Cloud.Location.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.LongRunning.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Google.Protobuf.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Grpc.Auth.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Grpc.Core.Api.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Grpc.Net.Client.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Grpc.Net.Common.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Microsoft.Bcl.AsyncInterfaces.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Microsoft.Extensions.Logging.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Newtonsoft.Json.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Secrets/firebase-credz-dev.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Secrets/firebase-credz.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Secrets/telegram-key-dev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/System.Linq.Async.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/Telegram.Bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/gainz-bot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/gainz-bot.deps.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/gainz-bot.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Debug/net6.0/gainz-bot.runtimeconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/FirebaseAdmin.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Api.CommonProtos.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Api.Gax.Grpc.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Api.Gax.Rest.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Api.Gax.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Apis.Auth.PlatformServices.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Apis.Auth.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Apis.Core.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Apis.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Cloud.Firestore.V1.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Cloud.Firestore.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Cloud.Location.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.LongRunning.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Google.Protobuf.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Grpc.Auth.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Grpc.Core.Api.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Grpc.Net.Client.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Grpc.Net.Common.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Microsoft.Bcl.AsyncInterfaces.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Microsoft.Extensions.Logging.Abstractions.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Newtonsoft.Json.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Secrets/firebase-credz-dev.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Secrets/firebase-credz.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Secrets/telegram-key-dev.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/System.Linq.Async.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/Telegram.Bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/gainz-bot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/gainz-bot.deps.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/gainz-bot.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/bin/Release/net6.0/gainz-bot.runtimeconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/apphost" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.GlobalUsings.g.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.csproj.CopyComplete" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.genruntimeconfig.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/gainz-bot.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/ref/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Debug/net6.0/refint/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/.NETCoreApp,Version=v6.0.AssemblyAttributes.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/apphost" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.AssemblyInfo.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.AssemblyInfoInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.GlobalUsings.g.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.assets.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.csproj.AssemblyReference.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.csproj.CopyComplete" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.genruntimeconfig.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/gainz-bot.pdb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/ref/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/Release/net6.0/refint/gainz-bot.dll" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/gainz-bot.csproj.nuget.dgspec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/gainz-bot.csproj.nuget.g.props" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/gainz-bot.csproj.nuget.g.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/project.assets.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/project.nuget.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/project.packagespec.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gainz-bot/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/RegisterCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/RegisterCommand.cs" afterDir="false" />
-    </list>
+    <list default="true" id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -188,13 +77,14 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="96eec332-2e33-4232-8116-036696c4370b" name="Changes" comment="" />
+      <changelist id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="" />
       <created>1667352865820</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667352865820</updated>
       <workItem from="1667352866893" duration="7201000" />
       <workItem from="1667933177702" duration="40350000" />
+      <workItem from="1668128711903" duration="321000" />
     </task>
     <servers />
   </component>
@@ -207,6 +97,23 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs</url>
+          <line>16</line>
+          <properties documentPath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" initialLine="16" containingFunctionPresentation="method 'Run'">
+            <startOffsets>
+              <option value="402" />
+            </startOffsets>
+            <endOffsets>
+              <option value="445" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#System.Threading.Tasks.SystemThreadingTasks_FutureDebugView`1" memberName="Exception" />
