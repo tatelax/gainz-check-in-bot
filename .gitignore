@@ -410,4 +410,6 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp
 
-gainz-bot/gainz-bot/secrets/*
+gainz-bot/gainz-bot/Secrets/*
+gainz-bot/gainz-bot/bin/*
+gainz-bot/gainz-bot/obj/*

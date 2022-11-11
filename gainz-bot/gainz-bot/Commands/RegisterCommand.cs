@@ -29,7 +29,8 @@ public static class RegisterCommand
 
         if (userSnapshot.Exists)
         {
-            await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"You're already registered to chat ID {userSnapshot.GetValue<int>("ChatID")}.", cancellationToken: token);
+            long currChatID = userSnapshot.GetValue<long>("ChatID");
+            await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"You're already registered to chat ID {currChatID}.", cancellationToken: token);
         }
         
         return userSnapshot.Exists;
