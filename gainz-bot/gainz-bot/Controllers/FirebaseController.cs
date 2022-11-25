@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Google.Cloud.Firestore;
 
 namespace gainz_bot;

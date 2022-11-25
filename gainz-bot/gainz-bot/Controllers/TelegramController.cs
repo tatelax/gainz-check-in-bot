@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using gainz_bot.Commands;
 using gainz_bot.Helpers;
 using Telegram.Bot;

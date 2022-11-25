@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/riderMarkupCache.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/riderMarkupCache.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/CheckInCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/CheckInCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/StatsCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/StatsCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/VacationDaysCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/VacationDaysCommand.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,6 +93,8 @@
       <workItem from="1668128711903" duration="321000" />
       <workItem from="1668657076784" duration="602000" />
       <workItem from="1669413833384" duration="958000" />
+      <workItem from="1669415103485" duration="245000" />
+      <workItem from="1669415362809" duration="310000" />
     </task>
     <servers />
   </component>

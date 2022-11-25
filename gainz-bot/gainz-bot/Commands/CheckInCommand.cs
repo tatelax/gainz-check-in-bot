@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Google.Cloud.Firestore;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -32,7 +29,7 @@ public static class CheckInCommand
         else
             currentCheckIns = userSnapshot.GetValue<int>("TotalCheckIns");
 
-        Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
+        var updates = new Dictionary<FieldPath, object>
         {
             { new FieldPath("HasBeenWarned"), false },
             { new FieldPath("TotalCheckIns"), ++currentCheckIns },
@@ -40,16 +37,12 @@ public static class CheckInCommand
         };
         
         if (checkInsUntilNextReward <= 1)
-        {
             await AwardVacationDay(update, userDoc, userSnapshot, token);
-        }
         else
-        {
             updates.Add(new FieldPath("CheckInsUntilNextReward"), --checkInsUntilNextReward);
-        }
 
         await userDoc.UpdateAsync(updates, cancellationToken: token);
-        await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"You're checked in! You've checked in {currentCheckIns} times. {checkInsUntilNextReward} more check-ins until your next reward.", cancellationToken: token);
+        await TelegramController.Instance.Client.SendTextMessageAsync(chatId:update.Message.Chat.Id, text: $"😤 You're checked in! You've checked in {currentCheckIns} times. {checkInsUntilNextReward} more check-ins until your next reward.", cancellationToken: token);
         PendingCheckIn.Remove(update.Message.From.Id);
     }
 

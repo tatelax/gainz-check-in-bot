@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Google.Cloud.Firestore;
 using Telegram.Bot;
 using Telegram.Bot.Types;
@@ -20,10 +18,10 @@ public static class StatsCommand
 
         string chatTitle = update.Message.Chat.Username;
 
-        if (update.Message.Chat.Type is ChatType.Group or ChatType.Channel)
-            chatTitle = update.Message.Chat.Title;
+        if (update.Message.Chat.Type is ChatType.Group or ChatType.Channel or ChatType.Supergroup)
+            chatTitle = $"\"{update.Message.Chat.Title}\" {update.Message.Chat.Type}";
 
-        string statsMsg = $"Stats for {chatTitle}\n";
+        string statsMsg = $"📈 Stats for {chatTitle}\n";
 
         if (snapshot.Count == 0)
         {

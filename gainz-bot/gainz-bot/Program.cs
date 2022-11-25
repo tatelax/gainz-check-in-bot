@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace gainz_bot;
 
 public static class Program
