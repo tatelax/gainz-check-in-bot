@@ -35,22 +35,20 @@ public class PollingController
             for (int i = 0; i < snapshot.Count; i++)
             {
                 int lastCheckIn = snapshot[i].GetValue<int>("LastCheckIn");
-                long chatID = snapshot[i].GetValue<int>("ChatID");
+                long chatID = snapshot[i].GetValue<long>("ChatID");
                 int remainingVacationDays = snapshot[i].GetValue<int>("VacationDays");
                 int lastVacationSubtract = snapshot[i].GetValue<int>("LastVacationSubtract");
                 bool hasBeenWarned = snapshot[i].GetValue<bool>("HasBeenWarned");
-
-                Console.WriteLine($"{lastCheckIn} {remainingVacationDays}");
-
-                if (lastCheckIn <= sixDaysAgo && lastCheckIn >= sevenDaysAgo && !hasBeenWarned) // Warn user
+                
+                if (lastCheckIn <= sixDaysAgo && lastCheckIn >= sevenDaysAgo && !hasBeenWarned)
                 {
                     await WarnUser(snapshot[i], remainingVacationDays, chatID);
                 }
-                else if (remainingVacationDays > 0 && lastVacationSubtract <= oneDayAgo) // Remove a vacation day
+                else if (remainingVacationDays > 0 && lastVacationSubtract <= oneDayAgo)
                 {
                     await SubtractVacationDay(snapshot[i], chatID, remainingVacationDays);
                 }
-                else if(remainingVacationDays == 0) // Kick user
+                else if(remainingVacationDays == 0)
                 {
                     await KickUser(snapshot[i], chatID);
                 }

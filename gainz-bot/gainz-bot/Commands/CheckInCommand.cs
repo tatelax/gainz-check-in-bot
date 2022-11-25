@@ -35,7 +35,8 @@ public static class CheckInCommand
         Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
         {
             { new FieldPath("HasBeenWarned"), false },
-            { new FieldPath("TotalCheckIns"), ++currentCheckIns }
+            { new FieldPath("TotalCheckIns"), ++currentCheckIns },
+            { new FieldPath("LastCheckIn"), DateTimeOffset.Now.ToUnixTimeSeconds()}
         };
         
         if (checkInsUntilNextReward <= 1)

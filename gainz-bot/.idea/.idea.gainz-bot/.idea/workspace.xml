@@ -4,7 +4,12 @@
     <projectFile>gainz-bot/gainz-bot.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="" />
+    <list default="true" id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/riderMarkupCache.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/riderMarkupCache.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/CheckInCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/CheckInCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -85,6 +90,8 @@
       <workItem from="1667352866893" duration="7201000" />
       <workItem from="1667933177702" duration="40350000" />
       <workItem from="1668128711903" duration="321000" />
+      <workItem from="1668657076784" duration="602000" />
+      <workItem from="1669413833384" duration="958000" />
     </task>
     <servers />
   </component>
@@ -97,23 +104,6 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs</url>
-          <line>16</line>
-          <properties documentPath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" initialLine="16" containingFunctionPresentation="method 'Run'">
-            <startOffsets>
-              <option value="402" />
-            </startOffsets>
-            <endOffsets>
-              <option value="445" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Type#System.Threading.Tasks.SystemThreadingTasks_FutureDebugView`1" memberName="Exception" />
