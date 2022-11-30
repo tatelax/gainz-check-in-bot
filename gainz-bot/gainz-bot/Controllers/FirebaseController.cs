@@ -4,7 +4,7 @@ namespace gainz_bot;
 
 public class FirebaseController
 {
-    public FirestoreDb db { get; private set; }
+    public FirestoreDb? db { get; private set; }
 
     private static readonly Lazy<FirebaseController> lazy = new(() => new FirebaseController());
 

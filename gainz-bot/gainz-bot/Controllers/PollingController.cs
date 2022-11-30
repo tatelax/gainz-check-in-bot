@@ -68,7 +68,8 @@ public class PollingController
 
         Dictionary<FieldPath, object> updates = new Dictionary<FieldPath, object>
         {
-            { new FieldPath("HasBeenWarned"), true }
+            { new FieldPath("HasBeenWarned"), true },
+            { new FieldPath("LastVacationSubtract"), DateTimeOffset.Now.ToUnixTimeSeconds() },
         };
 
         await snapshot.Reference.UpdateAsync(updates);

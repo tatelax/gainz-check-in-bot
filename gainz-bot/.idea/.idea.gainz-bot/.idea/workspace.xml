@@ -7,9 +7,9 @@
     <list default="true" id="7f713374-eacb-4fab-8aa6-1e4dab81d215" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.gainz-bot/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/CheckInCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/CheckInCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/StatsCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/StatsCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gainz-bot/Commands/VacationDaysCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Commands/VacationDaysCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gainz-bot/Controllers/FirebaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Controllers/FirebaseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Controllers/PollingController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gainz-bot/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/gainz-bot/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +94,9 @@
       <workItem from="1668657076784" duration="602000" />
       <workItem from="1669413833384" duration="958000" />
       <workItem from="1669415103485" duration="245000" />
-      <workItem from="1669415362809" duration="310000" />
+      <workItem from="1669415362809" duration="540000" />
+      <workItem from="1669529470578" duration="1188000" />
+      <workItem from="1669767559215" duration="454000" />
     </task>
     <servers />
   </component>
