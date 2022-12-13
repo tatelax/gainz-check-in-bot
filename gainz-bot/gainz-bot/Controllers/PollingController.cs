@@ -33,6 +33,7 @@ public class PollingController
             {
                 int lastCheckIn = snapshot[i].GetValue<int>("LastCheckIn");
                 long chatID = snapshot[i].GetValue<long>("ChatID");
+                long telegramID = snapshot[i].GetValue<long>("TelegramID");
                 int remainingVacationDays = snapshot[i].GetValue<int>("VacationDays");
                 int lastVacationSubtract = snapshot[i].GetValue<int>("LastVacationSubtract");
                 bool hasBeenWarned = snapshot[i].GetValue<bool>("HasBeenWarned");
@@ -47,7 +48,7 @@ public class PollingController
                 }
                 else if(remainingVacationDays == 0)
                 {
-                    await KickUser(snapshot[i], chatID);
+                    await KickUser(snapshot[i], chatID, telegramID);
                 }
             }
         }
@@ -97,11 +98,12 @@ public class PollingController
         await TelegramController.Instance.Client.SendTextMessageAsync(chatId: chatID, text: message);
     }
 
-    private async Task KickUser(DocumentSnapshot snapshot, long chatID)
+    private async Task KickUser(DocumentSnapshot snapshot, long chatID, long userID)
     {
         Console.WriteLine($"Kicking user {snapshot.Id}, in chat {chatID}");
 
         await snapshot.Reference.DeleteAsync();
+        await TelegramController.Instance.Client.BanChatMemberAsync(chatId: chatID, userId: userID);
         await TelegramController.Instance.Client.SendTextMessageAsync(chatId: chatID, text: $"💀 @{snapshot.Id} has been kicked! All data deleted. RIP.");
     }
 }
