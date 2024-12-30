@@ -9,9 +9,17 @@ public class FirebaseController
     private static readonly Lazy<FirebaseController> lazy = new(() => new FirebaseController());
 
     public static FirebaseController Instance => lazy.Value;
-    
-    public async Task Run()
+
+    public async Task Run(CancellationToken cancellationToken)
     {
-        db = await FirestoreDb.CreateAsync("gainz-c5ddd");
+        try
+        {
+            db = await FirestoreDb.CreateAsync("gainz-c5ddd");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine(ex.StackTrace);
+        }
     }
 }

@@ -16,33 +16,37 @@ public class TelegramController
 
     public static TelegramController Instance => lazy.Value;
 
-    public async Task Run()
+    public async Task Run(CancellationToken cancellationToken)
     {
-        Client = new TelegramBotClient(await System.IO.File.ReadAllTextAsync("./Secrets/telegram-key-dev.txt"));
-
-        using var cts = new CancellationTokenSource();
-
-        // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
-        var receiverOptions = new ReceiverOptions
+        try
         {
-            AllowedUpdates = Array.Empty<UpdateType>() // receive all update types
-        };
-        
-        Client.StartReceiving(
-            updateHandler: HandleUpdateAsync,
-            pollingErrorHandler: HandlePollingErrorAsync,
-            receiverOptions: receiverOptions,
-            cancellationToken: cts.Token
-        );
+            Client = new TelegramBotClient(await System.IO.File.ReadAllTextAsync("./Secrets/telegram-key-dev.txt"));
 
-        var me = await Client.GetMeAsync(cancellationToken: cts.Token);
+            // StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
+            var receiverOptions = new ReceiverOptions
+            {
+                AllowedUpdates = Array.Empty<UpdateType>() // receive all update types
+            };
 
-        Console.WriteLine($"Start listening for @{me.Username}");
-        Console.ReadLine();
-        
-        // Send cancellation request to stop bot
-        cts.Cancel();
+            Client.StartReceiving(
+                updateHandler: HandleUpdateAsync,
+                pollingErrorHandler: HandlePollingErrorAsync,
+                receiverOptions: receiverOptions,
+                cancellationToken: cancellationToken
+            );
+
+            var me = await Client.GetMeAsync(cancellationToken: cancellationToken);
+
+            Console.WriteLine($"Start listening for @{me.Username}");
+            Console.ReadLine();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            Console.WriteLine(ex.StackTrace);
+        }
     }
+
 
     private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
     {
@@ -53,15 +57,15 @@ public class TelegramController
         long chatId = message.Chat.Id;
 
         Console.WriteLine($"Received a '{message.Type}' messageType in chat {chatId}.");
-        
-        if (message.Type is MessageType.Text && message.Text[0] == '/') // The user is sending a command
+
+        if (message.Type is MessageType.Text && message?.Text?[0] == '/') // The user is sending a command
         {
             await CommandBroker.Command(update, cancellationToken);
         }
-        else if(message.Type is MessageType.Document 
-                             or MessageType.Video 
-                             or MessageType.Audio 
-                             or MessageType.Photo 
+        else if (message?.Type is MessageType.Document
+                             or MessageType.Video
+                             or MessageType.Audio
+                             or MessageType.Photo
                              or MessageType.VideoNote) // The user is probably sending a check-in
         {
             await CheckInCommand.CheckIn(update, cancellationToken);
